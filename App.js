@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, FlatList, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, FlatList, Text, View, TouchableOpacity } from 'react-native';
 
 const App: () => React$Node = () => {
   const [lists, setLists] = useState([
@@ -25,15 +25,33 @@ const App: () => React$Node = () => {
     );
   };
 
+  const renderHeader = () => {
+    return (
+      <View style={styles.header}>
+        <Text style={styles.headerText}>My Lists</Text>
+      </View>
+    );
+  };
+
+  const handleCreate = () => {
+    alert('button pressed');
+  };
+
   return (
     <>
       <SafeAreaView style={styles.container}>
         <FlatList
+          style={styles.list}
           data={lists}
           renderItem={renderItem}
           ItemSeparatorComponent={renderSeparator}
-          style={styles.list}
+          ListHeaderComponent={renderHeader}
         />
+        <View style={styles.footer}>
+          <TouchableOpacity style={styles.button} onPress={handleCreate}>
+            <Text style={styles.buttonText}>Create List</Text>
+          </TouchableOpacity>
+        </View>
       </SafeAreaView>
     </>
   );
@@ -45,7 +63,27 @@ const styles = StyleSheet.create({
     margin: 10
   },
   list: {
-
+    height: '100%'
+  },
+  header: {
+    height: 60,
+    backgroundColor: 'purple',
+    justifyContent: 'center'
+  },
+  footer: {
+    height: 60,
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+  button: {
+    height: 60,
+    width: 60,
+    borderRadius: 30,
+    backgroundColor: 'lightgrey',
+    justifyContent: 'center'
+  },
+  buttonText: {
+    textAlign: 'center'
   },
   itemView: {
     height: 60,
@@ -55,6 +93,11 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     color: 'black',
+  },
+  headerText: {
+    fontSize: 24,
+    textAlign: 'center',
+    color: 'white'
   },
   separatorView: {
     height: 1,
