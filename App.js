@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, View, Modal, TouchableOpacity, Text } from 'react-native';
 import IconButton from './components/IconButton';
 import ListWidget from './components/ListWidget';
+import ConfirmPrompt from './components/ConfirmPrompt';
 
 const App: () => React$Node = () => {
   const [lists, setLists] = useState([
@@ -28,6 +29,11 @@ const App: () => React$Node = () => {
     setShowModal(false);
   };
 
+  const handleDelete = () => {
+  // TODO process confirmation of delete
+    hideModal();
+  };
+
   return (
     <>
       <SafeAreaView style={styles.container}>
@@ -46,22 +52,14 @@ const App: () => React$Node = () => {
             icon="plus"
           />
         </View>
-        <Modal transparent={true} visible={showModal} animationType="fade">
-          <View elevation={10} style={styles.modalView}>
-            <View style={styles.modalDialog}>
-              <View style={styles.header}>
-                <Text style={styles.headerText}>List Name</Text>
-              </View>
-              <View>
-                <Text style={styles.modalText}>Are you sure you want to delete this list?</Text>
-                <View style={styles.buttonRow}>
-                  <TouchableOpacity style={styles.modalButton} onPress={hideModal}><Text>OK</Text></TouchableOpacity>
-                  <TouchableOpacity style={styles.modalButton} onPress={hideModal}><Text>Cancel</Text></TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          </View>
-        </Modal>
+        <ConfirmPrompt
+          show={showModal}
+          dismissModal={hideModal}
+          title="List Name"
+          message="Are you sure you want to delete this list?"
+          confirmButtonText="Delete"
+          handleConfirm={handleDelete}
+        />
       </SafeAreaView>
     </>
   );
