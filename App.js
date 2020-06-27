@@ -25,7 +25,13 @@ const App: () => React$Node = () => {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <ListWidget items={lists} listColor="orange" listName="My Lists"/>
+        <ListWidget
+          items={lists}
+          listColor="orange"
+          listName="My Lists"
+          handlePress={handleItemPress}
+          handleLongPress={handleItemLongPress}
+        />
         <View style={styles.footer}>
           <IconButton
             buttonColor="orange"
