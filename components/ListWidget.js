@@ -48,8 +48,8 @@ const ListWidget = ({
     return (
       <TouchableOpacity
         style={styles.itemView}
-        onPress={handlePress}
-        onLongPress={handleLongPress}
+        onPress={() => handlePress(item)}
+        onLongPress={() => handleLongPress(item)}
       >
         <Text key={item.key} style={styles.text}>
           {item.name}

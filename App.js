@@ -3,6 +3,8 @@ import { SafeAreaView, StyleSheet, View, Modal, TouchableOpacity, Text } from 'r
 import IconButton from './components/IconButton';
 import ListWidget from './components/ListWidget';
 import ConfirmPrompt from './components/ConfirmPrompt';
+import InputPrompt from './components/InputPrompt';
+
 
 const App: () => React$Node = () => {
   const [lists, setLists] = useState([
@@ -11,27 +13,46 @@ const App: () => React$Node = () => {
     {key: '3', name: 'Work To Do'}
   ]);
 
+  const [selected, setSelected] = useState(null);
+
   const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState(null);
 
   const handleCreate = () => {
-    alert('button pressed');
+    setModalType('add');
+    setShowModal(true);
   };
 
-  const handleItemPress = () => {
+  const handleItemPress = (item) => {
+    setSelected(item);
     alert('item pressed');
   };
 
-  const handleItemLongPress = () => {
+  const handleItemLongPress = (item) => {
+    setSelected(item);
+    setModalType('delete');
     setShowModal(true);
   };
 
   const hideModal = () => {
+    setSelected(null);
     setShowModal(false);
+    setModalType(null);
   };
 
   const handleDelete = () => {
-  // TODO process confirmation of delete
+    deleteList();
     hideModal();
+  };
+
+  const deleteList = () => {
+    let newLists = lists.filter(item => item.key != selected.key);
+    setLists(newLists);
+  };
+
+  const handleAdd = () => {
+    hideModal();
+    alert('adding item');
   };
 
   return (
@@ -53,12 +74,19 @@ const App: () => React$Node = () => {
           />
         </View>
         <ConfirmPrompt
-          show={showModal}
+          show={showModal && modalType === 'delete'}
           dismissModal={hideModal}
-          title="List Name"
+          title={selected && selected.name ? selected.name : "Generic List"}
           message="Are you sure you want to delete this list?"
           confirmButtonText="Delete"
           handleConfirm={handleDelete}
+        />
+        <InputPrompt
+          show={showModal && modalType === 'add'}
+          dismissModal={hideModal}
+          title="Name Your List"
+          submitButtonText="Add"
+          handleSubmit={handleAdd}
         />
       </SafeAreaView>
     </>
@@ -84,39 +112,6 @@ const styles = StyleSheet.create({
     height: 60,
     flexDirection: 'row',
     justifyContent: 'space-around'
-  },
-  modalView: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
-    backgroundColor: 'lightgrey',
-    opacity: 0.7
-  },
-  modalDialog: {
-    width: '75%',
-    backgroundColor: 'white',
-    borderColor: 'orange',
-    borderStyle: 'solid',
-    borderWidth: 2,
-    borderRadius: 10
-  },
-  modalText: {
-    justifyContent: 'center',
-    fontSize: 18,
-    color: 'black',
-    textAlign: 'center'
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    height: 50,
-    justifyContent: 'center',
-    marginTop: 10
-  },
-  modalButton: {
-    borderColor: 'orange',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    flex: 1
   }
 });
 
