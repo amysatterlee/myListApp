@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, FlatList, Text, View, TouchableOpacity } from 'react-native';
+import { FlatList, Text, View, TouchableOpacity } from 'react-native';
+import { Styles } from '../stylesheets/Styles';
 
 const ListWidget = ({
   items,
@@ -9,48 +10,7 @@ const ListWidget = ({
   handleLongPress
 }) => {
 
-  const styles = StyleSheet.create({
-    list: {
-      height: '100%'
-    },
-    header: {
-      height: 60,
-      backgroundColor: listColor,
-      justifyContent: 'center'
-    },
-    itemView: {
-      height: 60,
-      padding: 10,
-      backgroundColor: 'white',
-      flexDirection: 'row',
-      alignItems: 'center'
-    },
-    text: {
-      fontSize: 20,
-      color: 'black',
-    },
-    headerText: {
-      fontSize: 24,
-      textAlign: 'center',
-      color: 'black'
-    },
-    separatorView: {
-      height: 1,
-      backgroundColor: 'white'
-    },
-    separatorLine: {
-      height: 1,
-      marginLeft: 10,
-      marginRight: 10,
-      backgroundColor: 'grey'
-    },
-    block: {
-      width: 20,
-      height: 20,
-      marginRight: 5,
-      marginLeft: 15
-    }
-  });
+  const styles = Styles.get();
 
   const renderItem = ({item, idx}) => {
     return (
@@ -77,7 +37,7 @@ const ListWidget = ({
 
   const renderHeader = () => {
     return (
-      <View style={styles.header}>
+      <View style={{...styles.header, backgroundColor: listColor}}>
         <Text style={styles.headerText}>{listName}</Text>
       </View>
     );
