@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Modal, TouchableOpacity, Text, TextInput } from 'react-native';
 
 const InputPrompt = ({
@@ -14,6 +14,10 @@ const InputPrompt = ({
     setValue(val);
   };
 
+  useEffect(() => {
+    setValue('');
+  }, []);
+
   return (
     <Modal transparent={true} visible={show} animationType="fade">
       <View elevation={10} style={styles.modalView}>
@@ -22,7 +26,14 @@ const InputPrompt = ({
             <Text style={styles.headerText}>{title}</Text>
           </View>
           <View>
-            <TextInput onChangeText={handleTextChange} value={value}/>
+            <TextInput
+              autoFocus={true}
+              showSoftInputOnFocus={true}
+              style={styles.textInput}
+              onChangeText={handleTextChange}
+              onSubmitEditing={handleSubmit}
+              value={value}
+            />
             <View style={styles.buttonRow}>
               <TouchableOpacity style={styles.buttonLeft} onPress={handleSubmit}>
                 <Text style={styles.buttonText}>{submitButtonText}</Text>
@@ -54,7 +65,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: '100%',
     backgroundColor: 'lightgrey',
-    opacity: 0.7
+    opacity: 0.8
   },
   modalDialog: {
     width: '75%',
@@ -64,12 +75,14 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10
   },
-  modalText: {
+  textInput: {
     justifyContent: 'center',
     fontSize: 18,
     color: 'black',
-    textAlign: 'center',
-    margin: 10
+    margin: 10,
+    borderColor: 'lightgrey',
+    borderWidth: 1,
+    borderStyle: 'solid'
   },
   buttonRow: {
     flexDirection: 'row',

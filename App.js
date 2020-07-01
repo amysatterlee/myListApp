@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, View, Modal, TouchableOpacity, Text } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, View, Modal, TouchableOpacity, Text } from 'react-native';
 import IconButton from './components/IconButton';
 import ListWidget from './components/ListWidget';
 import ConfirmPrompt from './components/ConfirmPrompt';
@@ -8,9 +8,9 @@ import InputPrompt from './components/InputPrompt';
 
 const App: () => React$Node = () => {
   const [lists, setLists] = useState([
-    {key: '1', name: 'Shopping'},
-    {key: '2', name: 'Weekend To Do'},
-    {key: '3', name: 'Work To Do'}
+    {key: '1', name: 'Shopping', color: 'lightblue'},
+    {key: '2', name: 'Weekend To Do', color: 'lightgreen'},
+    {key: '3', name: 'Work To Do', color: 'lightpink'}
   ]);
 
   const [selected, setSelected] = useState(null);
@@ -58,16 +58,22 @@ const App: () => React$Node = () => {
   return (
     <>
       <SafeAreaView style={styles.container}>
+        <StatusBar
+          barStyle="dark-content"
+          hidden={false}
+          backgroundColor="lightgrey"
+          translucent={true}
+        />
         <ListWidget
           items={lists}
-          listColor="orange"
+          listColor="lightgrey"
           listName="My Lists"
           handlePress={handleItemPress}
           handleLongPress={handleItemLongPress}
         />
         <View style={styles.footer}>
           <IconButton
-            buttonColor="orange"
+            buttonColor="lightgrey"
             iconColor="white"
             handlePress={handleCreate}
             icon="plus"
@@ -96,7 +102,8 @@ const App: () => React$Node = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 10
+    marginTop: 10,
+    marginBottom: 15
   },
   header: {
     height: 60,
@@ -106,7 +113,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: 'orange'
+    color: 'lightgrey'
   },
   footer: {
     height: 60,

@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: '100%',
     backgroundColor: 'lightgrey',
-    opacity: 0.7
+    opacity: 0.8
   },
   modalDialog: {
     width: '75%',

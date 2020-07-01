@@ -21,7 +21,9 @@ const ListWidget = ({
     itemView: {
       height: 60,
       padding: 10,
-      backgroundColor: 'lightgrey'
+      backgroundColor: 'white',
+      flexDirection: 'row',
+      alignItems: 'center'
     },
     text: {
       fontSize: 20,
@@ -30,17 +32,23 @@ const ListWidget = ({
     headerText: {
       fontSize: 24,
       textAlign: 'center',
-      color: 'white'
+      color: 'black'
     },
     separatorView: {
       height: 1,
-      backgroundColor: 'lightgrey'
+      backgroundColor: 'white'
     },
     separatorLine: {
       height: 1,
       marginLeft: 10,
       marginRight: 10,
       backgroundColor: 'grey'
+    },
+    block: {
+      width: 20,
+      height: 20,
+      marginRight: 5,
+      marginLeft: 15
     }
   });
 
@@ -51,7 +59,8 @@ const ListWidget = ({
         onPress={() => handlePress(item)}
         onLongPress={() => handleLongPress(item)}
       >
-        <Text key={item.key} style={styles.text}>
+        <View style={{...styles.block, backgroundColor: item.color}}/>
+        <Text key={item.key} style={{...styles.text, borderBottomColor: item.color, borderBottomWidth: 2}}>
           {item.name}
         </Text>
       </TouchableOpacity>
