@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, View, Modal, TouchableOpacity, Text } from 'react-native';
+import { SafeAreaView, StatusBar, View } from 'react-native';
 import IconButton from './components/IconButton';
 import ListWidget from './components/ListWidget';
 import ConfirmPrompt from './components/ConfirmPrompt';
 import InputPrompt from './components/InputPrompt';
-
+import { Styles } from './stylesheets/Styles';
 
 const App: () => React$Node = () => {
+
+  const styles = Styles.get();
+
   const [lists, setLists] = useState([
     {key: '1', name: 'Shopping', color: 'lightblue'},
     {key: '2', name: 'Weekend To Do', color: 'lightgreen'},
@@ -98,28 +101,5 @@ const App: () => React$Node = () => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 10,
-    marginBottom: 15
-  },
-  header: {
-    height: 60,
-    justifyContent: 'center'
-  },
-  headerText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: 'lightgrey'
-  },
-  footer: {
-    height: 60,
-    flexDirection: 'row',
-    justifyContent: 'space-around'
-  }
-});
 
 export default App;

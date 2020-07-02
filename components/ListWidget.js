@@ -19,7 +19,7 @@ const ListWidget = ({
         onPress={() => handlePress(item)}
         onLongPress={() => handleLongPress(item)}
       >
-        <View style={{...styles.block, backgroundColor: item.color}}/>
+        <View style={{...styles.badge, backgroundColor: item.color}}/>
         <Text key={item.key} style={{...styles.text, borderBottomColor: item.color, borderBottomWidth: 2}}>
           {item.name}
         </Text>

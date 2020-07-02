@@ -2,6 +2,11 @@ import { StyleSheet } from 'react-native';
 
 export const Styles = {
   get: () => StyleSheet.create({
+    container: {
+      flex: 1,
+      marginTop: 10,
+      marginBottom: 15
+    },
     list: {
       height: '100%'
     },
@@ -35,11 +40,17 @@ export const Styles = {
       marginRight: 10,
       backgroundColor: 'grey'
     },
-    block: {
-      width: 20,
-      height: 20,
+    badge: {
+      width: 30,
+      height: 30,
       marginRight: 5,
-      marginLeft: 15
+      marginLeft: 15,
+      borderRadius: 15
+    },
+    footer: {
+      height: 60,
+      flexDirection: 'row',
+      justifyContent: 'space-around'
     }
   })
 };
