@@ -20,7 +20,7 @@ const ListWidget = ({
         onLongPress={() => handleLongPress(item)}
       >
         <View style={{...styles.badge, backgroundColor: item.color}}/>
-        <Text key={item.key} style={{...styles.text, borderBottomColor: item.color, borderBottomWidth: 2}}>
+        <Text key={item.key.toString()} style={{...styles.text, borderBottomColor: item.color, borderBottomWidth: 2}}>
           {item.name}
         </Text>
       </TouchableOpacity>

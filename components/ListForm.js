@@ -20,23 +20,30 @@ const ListForm = ({
   };
 
   useEffect(() => {
-    setValue('');
-  }, []);
+    if (show) {
+      setValue('');
+      setColor('grey');
+    }
+  }, [show]);
 
-  const renderColorSelector = (color) => {
+  const getStyle = (color) => {
     let colorStyle = {
       ...styles.badge,
       backgroundColor: color
     };
-    colorStyle.borderColor = color === selectedColor ? 'darkgrey' : null;
-    colorStyle.borderStyle = color === selectedColor ? 'solid' : 'none';
-    return (
-      <View
-        onPress={() => selectColor(color)}
-        style={colorStyle}
-      />
-    );
+    if (color === selectedColor) {
+      colorStyle.borderColor = 'black';
+      colorStyle.borderStyle = 'solid';
+      colorStyle.borderWidth = 2;
+    };
+    return colorStyle;
   };
+
+  const handleSubmitPress = () => {
+    if (value && value.length > 0) {
+      handleSubmit({name: value, color: selectedColor});
+    }
+  }
 
   return (
     <Modal transparent={true} visible={show} animationType="fade">
@@ -51,21 +58,39 @@ const ListForm = ({
               showSoftInputOnFocus={true}
               style={styles.textInput}
               onChangeText={handleTextChange}
-              onSubmitEditing={handleSubmit}
+              onSubmitEditing={handleSubmitPress}
               value={value}
             />
             <View style={styles.colorGrid}>
-              {renderColorSelector('grey')}
-              {renderColorSelector(Colors.red)}
-              {renderColorSelector(Colors.orange)}
+              <TouchableOpacity
+                onPress={() => setColor('grey')}
+                style={getStyle('grey')}
+              />
+              <TouchableOpacity
+                onPress={() => setColor(Colors.red)}
+                style={getStyle(Colors.red)}
+              />
+              <TouchableOpacity
+                onPress={() => setColor(Colors.orange)}
+                style={getStyle(Colors.orange)}
+              />
             </View>
             <View style={styles.colorGrid}>
-              {renderColorSelector(Colors.blue)}
-              {renderColorSelector(Colors.purple)}
-              {renderColorSelector(Colors.green)}
+              <TouchableOpacity
+                onPress={() => setColor(Colors.blue)}
+                style={getStyle(Colors.blue)}
+              />
+              <TouchableOpacity
+                onPress={() => setColor(Colors.purple)}
+                style={getStyle(Colors.purple)}
+              />
+              <TouchableOpacity
+                onPress={() => setColor(Colors.green)}
+                style={getStyle(Colors.green)}
+              />
             </View>
             <View style={styles.buttonRow}>
-              <TouchableOpacity style={styles.buttonLeft} onPress={handleSubmit}>
+              <TouchableOpacity style={styles.buttonLeft} onPress={handleSubmitPress}>
                 <Text style={styles.buttonText}>{submitButtonText}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.buttonRight} onPress={dismissModal}>

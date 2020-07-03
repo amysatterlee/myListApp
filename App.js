@@ -11,9 +11,9 @@ const App: () => React$Node = () => {
   const styles = Styles.get();
 
   const [lists, setLists] = useState([
-    {key: '1', name: 'Shopping', color: 'lightblue'},
-    {key: '2', name: 'Weekend To Do', color: 'lightgreen'},
-    {key: '3', name: 'Work To Do', color: 'lightpink'}
+    {key: 1, name: 'Shopping', color: 'lightblue'},
+    {key: 2, name: 'Weekend To Do', color: 'lightgreen'},
+    {key: 3, name: 'Work To Do', color: 'lightpink'}
   ]);
 
   const [selected, setSelected] = useState(null);
@@ -53,9 +53,15 @@ const App: () => React$Node = () => {
     setLists(newLists);
   };
 
-  const handleAdd = () => {
+  const handleAdd = (item) => {
+    // TODO add call to db to add item
+    const max = lists.reduce((winner, current) => {
+      return Math.max(winner, current.key);
+    }, 0);
+    let newLists = lists.slice();
+    newLists.push({...item, key: max + 1});
+    setLists(newLists);
     hideModal();
-    alert('adding item');
   };
 
   return (
