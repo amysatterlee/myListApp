@@ -1,6 +1,7 @@
 import React from 'react';
-import { TouchableHighlight, View, StyleSheet } from 'react-native';
+import { TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Styles } from '../stylesheets/Styles';
 
 const IconButton = ({
   handlePress,
@@ -8,29 +9,17 @@ const IconButton = ({
   iconColor,
   icon
 }) => {
-  const styles = StyleSheet.create({
-    underlay: {
-      height: 64,
-      width: 64,
-      borderRadius: 32
-    },
-    button: {
-      height: 64,
-      width: 64,
-      borderRadius: 32,
-      backgroundColor: buttonColor,
-      justifyContent: 'center',
-      alignItems: 'center'
-    }
-  });
+
+  const styles = Styles.get();
+
   return (
     <TouchableHighlight
-      style={styles.underlay}
+      style={styles.iconUnderlay}
       activeOpacity={0.6}
       underlayColor="#DDDDDD"
       onPress={handlePress}
     >
-      <View elevation={5} style={styles.button}>
+      <View elevation={5} style={{...styles.iconButton, backgroundColor: buttonColor}}>
         <Icon name={icon} color={iconColor} size={30}></Icon>
       </View>
     </TouchableHighlight>

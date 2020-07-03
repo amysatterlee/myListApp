@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Modal, TouchableOpacity, Text, TextInput } from 'react-native';
+import { View, Modal, TouchableOpacity, Text, TextInput } from 'react-native';
+import { Styles, Colors } from '../stylesheets/Styles';
 
-const InputPrompt = ({
+const ListForm = ({
   show,
   dismissModal,
   title,
   submitButtonText,
   handleSubmit
 }) => {
+
+  const styles = Styles.get();
+
   const [value, setValue] = useState('');
+  const [selectedColor, setColor] = useState('grey');
 
   const handleTextChange = (val) => {
     setValue(val);
@@ -17,6 +22,21 @@ const InputPrompt = ({
   useEffect(() => {
     setValue('');
   }, []);
+
+  const renderColorSelector = (color) => {
+    let colorStyle = {
+      ...styles.badge,
+      backgroundColor: color
+    };
+    colorStyle.borderColor = color === selectedColor ? 'darkgrey' : null;
+    colorStyle.borderStyle = color === selectedColor ? 'solid' : 'none';
+    return (
+      <View
+        onPress={() => selectColor(color)}
+        style={colorStyle}
+      />
+    );
+  };
 
   return (
     <Modal transparent={true} visible={show} animationType="fade">
@@ -34,6 +54,16 @@ const InputPrompt = ({
               onSubmitEditing={handleSubmit}
               value={value}
             />
+            <View style={styles.colorGrid}>
+              {renderColorSelector('grey')}
+              {renderColorSelector(Colors.red)}
+              {renderColorSelector(Colors.orange)}
+            </View>
+            <View style={styles.colorGrid}>
+              {renderColorSelector(Colors.blue)}
+              {renderColorSelector(Colors.purple)}
+              {renderColorSelector(Colors.green)}
+            </View>
             <View style={styles.buttonRow}>
               <TouchableOpacity style={styles.buttonLeft} onPress={handleSubmit}>
                 <Text style={styles.buttonText}>{submitButtonText}</Text>
@@ -49,64 +79,4 @@ const InputPrompt = ({
   );
 };
 
-const styles = StyleSheet.create({
-  header: {
-    height: 60,
-    justifyContent: 'center'
-  },
-  headerText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: 'orange'
-  },
-  modalView: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
-    backgroundColor: 'lightgrey',
-    opacity: 0.8
-  },
-  modalDialog: {
-    width: '75%',
-    backgroundColor: 'white',
-    borderColor: 'orange',
-    borderStyle: 'solid',
-    borderWidth: 2,
-    borderRadius: 10
-  },
-  textInput: {
-    justifyContent: 'center',
-    fontSize: 18,
-    color: 'black',
-    margin: 10,
-    borderColor: 'lightgrey',
-    borderWidth: 1,
-    borderStyle: 'solid'
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    height: 50,
-    justifyContent: 'center',
-    marginTop: 10
-  },
-  buttonLeft: {
-    borderRightColor: 'orange',
-    borderRightWidth: 1,
-    flex: 1
-  },
-  buttonRight: {
-    borderLeftColor: 'orange',
-    borderLeftWidth: 1,
-    flex: 1
-  },
-  buttonText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: 'orange',
-    marginTop: 10
-  },
-});
-
-export default InputPrompt;
+export default ListForm;

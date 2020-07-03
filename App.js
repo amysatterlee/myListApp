@@ -3,7 +3,7 @@ import { SafeAreaView, StatusBar, View } from 'react-native';
 import IconButton from './components/IconButton';
 import ListWidget from './components/ListWidget';
 import ConfirmPrompt from './components/ConfirmPrompt';
-import InputPrompt from './components/InputPrompt';
+import ListForm from './components/ListForm';
 import { Styles } from './stylesheets/Styles';
 
 const App: () => React$Node = () => {
@@ -90,7 +90,7 @@ const App: () => React$Node = () => {
           confirmButtonText="Delete"
           handleConfirm={handleDelete}
         />
-        <InputPrompt
+        <ListForm
           show={showModal && modalType === 'add'}
           dismissModal={hideModal}
           title="Name Your List"

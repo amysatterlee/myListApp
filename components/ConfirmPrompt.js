@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Modal, TouchableOpacity, Text } from 'react-native';
+import { View, Modal, TouchableOpacity, Text } from 'react-native';
+import { Styles } from '../stylesheets/Styles';
 
 const ConfirmPrompt = ({
   show,
@@ -9,6 +10,9 @@ const ConfirmPrompt = ({
   confirmButtonText,
   handleConfirm
 }) => {
+
+  const styles = Styles.get();
+
   return (
     <Modal transparent={true} visible={show} animationType="fade">
       <View elevation={10} style={styles.modalView}>
@@ -32,63 +36,5 @@ const ConfirmPrompt = ({
     </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-  header: {
-    height: 60,
-    justifyContent: 'center'
-  },
-  headerText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: 'orange'
-  },
-  modalView: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
-    backgroundColor: 'lightgrey',
-    opacity: 0.8
-  },
-  modalDialog: {
-    width: '75%',
-    backgroundColor: 'white',
-    borderColor: 'orange',
-    borderStyle: 'solid',
-    borderWidth: 2,
-    borderRadius: 10
-  },
-  modalText: {
-    justifyContent: 'center',
-    fontSize: 18,
-    color: 'black',
-    textAlign: 'center',
-    margin: 10
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    height: 50,
-    justifyContent: 'center',
-    marginTop: 10
-  },
-  buttonLeft: {
-    borderRightColor: 'orange',
-    borderRightWidth: 1,
-    flex: 1
-  },
-  buttonRight: {
-    borderLeftColor: 'orange',
-    borderLeftWidth: 1,
-    flex: 1
-  },
-  buttonText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: 'orange',
-    marginTop: 10
-  },
-});
 
 export default ConfirmPrompt;
