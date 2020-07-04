@@ -20,7 +20,7 @@ const ListWidget = ({
         onLongPress={() => handleLongPress(item)}
       >
         <View style={{...styles.badge, backgroundColor: item.color}}/>
-        <Text key={item.key.toString()} style={{...styles.text, borderBottomColor: item.color, borderBottomWidth: 2}}>
+        <Text style={{...styles.text, borderBottomColor: item.color, borderBottomWidth: 2}}>
           {item.name}
         </Text>
       </TouchableOpacity>
@@ -35,22 +35,19 @@ const ListWidget = ({
     );
   };
 
-  const renderHeader = () => {
-    return (
-      <View style={{...styles.header, backgroundColor: listColor}}>
+  return (
+    <>
+      <View elevation={5} style={{...styles.header, backgroundColor: listColor}}>
         <Text style={styles.headerText}>{listName}</Text>
       </View>
-    );
-  };
-
-  return (
-    <FlatList
-      style={styles.list}
-      data={items}
-      renderItem={renderItem}
-      ItemSeparatorComponent={renderSeparator}
-      ListHeaderComponent={renderHeader}
-    />
+      <FlatList
+        style={styles.list}
+        data={items}
+        renderItem={renderItem}
+        ItemSeparatorComponent={renderSeparator}
+        keyExtractor={(item, idx) => item.key.toString()}
+      />
+    </>
   );
 };
 
