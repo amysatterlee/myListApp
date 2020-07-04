@@ -13,14 +13,24 @@ const ListWidget = ({
   const styles = Styles.get();
 
   const renderItem = ({item, idx}) => {
+    const textStyle = {...styles.text};
+    if (item.color) {
+      textStyle.borderBottomColor = item.color;
+      textStyle.borderBottomWidth = 2;
+    };
+
     return (
       <TouchableOpacity
         style={styles.itemView}
         onPress={() => handlePress(item)}
         onLongPress={() => handleLongPress(item)}
       >
-        <View style={{...styles.badge, backgroundColor: item.color}}/>
-        <Text style={{...styles.text, borderBottomColor: item.color, borderBottomWidth: 2}}>
+        {item.color ? (
+          <View style={{...styles.badge, backgroundColor: item.color}}/>
+        ) : (
+          null
+        )}
+        <Text style={textStyle}>
           {item.name}
         </Text>
       </TouchableOpacity>
@@ -45,7 +55,7 @@ const ListWidget = ({
         data={items}
         renderItem={renderItem}
         ItemSeparatorComponent={renderSeparator}
-        keyExtractor={(item, idx) => item.key.toString()}
+        keyExtractor={(item, idx) => item.id.toString()}
       />
     </>
   );

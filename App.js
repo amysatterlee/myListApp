@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StatusBar, View, ActivityIndicator } from 'react-native';
 import IconButton from './components/IconButton';
 import ListWidget from './components/ListWidget';
@@ -10,18 +10,22 @@ const App: () => React$Node = () => {
 
   const styles = Styles.get();
 
-  const [lists, setLists] = useState([
-    {key: 1, name: 'Shopping', color: Colors.blue},
-    {key: 2, name: 'Weekend To Do', color: Colors.green},
-    {key: 3, name: 'Work To Do', color: Colors.red}
-  ]);
-
+  const [lists, setLists] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [listItems, setListItems] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState(null);
   const [showList, setShowList] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLists([
+      {id: 1, name: 'Shopping', color: Colors.blue},
+      {id: 2, name: 'Weekend To Do', color: Colors.green},
+      {id: 3, name: 'Work To Do', color: Colors.red}
+    ]);
+  }, []);
 
   const handleCreate = () => {
     setModalType('add');
@@ -53,14 +57,19 @@ const App: () => React$Node = () => {
   };
 
   const deleteList = () => {
-    let newLists = lists.filter(item => item.key != selected.key);
+    let newLists = lists.filter(item => item.id != selected.id);
     setLists(newLists);
   };
 
   const retrieveList = (item) => {
-    console.log(`Retreiving List with id ${item.key}`);
+    console.log(`Retreiving List with id ${item.id}`);
     setLoading(true);
     setTimeout(() => {
+      setListItems([
+        {id: 1, name: 'First item on the list',  status: 'active'},
+        {id: 2, name: 'Second item on the list', status: 'active'},
+        {id: 3, name: 'Third item on the list',  status: 'active'}
+      ]);
       setLoading(false);
     }, 2000);
   }
@@ -68,17 +77,17 @@ const App: () => React$Node = () => {
   const handleAdd = (item) => {
     // TODO add call to db to add item
     const max = lists.reduce((winner, current) => {
-      return Math.max(winner, current.key);
+      return Math.max(winner, current.id);
     }, 0);
     let newLists = lists.slice();
-    newLists.push({...item, key: max + 1});
+    newLists.push({...item, id: max + 1});
     setLists(newLists);
     hideModal();
   };
 
   const renderListWidget = () => {
     const listColor = showList ? selected.color : 'lightgrey';
-    const items = showList ? [] : lists;
+    const items = showList ? listItems : lists;
     const listName = showList ? selected.name : 'My Lists';
     return (
       <ListWidget
