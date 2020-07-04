@@ -26,7 +26,7 @@ export const Styles = {
       fontSize: 24,
       fontWeight: 'bold',
       textAlign: 'center',
-      color: 'darkgrey'
+      color: 'white'
     },
     itemView: {
       height: 60,
