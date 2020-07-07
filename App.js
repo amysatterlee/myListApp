@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StatusBar, View, ActivityIndicator } from 'react-native';
+import { SafeAreaView, StatusBar, View, ActivityIndicator, BackHandler } from 'react-native';
 import IconButton from './components/IconButton';
 import ListWidget from './components/ListWidget';
 import ConfirmPrompt from './components/ConfirmPrompt';
@@ -26,7 +26,16 @@ const App: () => React$Node = () => {
       {id: 2, name: 'Weekend To Do', color: Colors.green},
       {id: 3, name: 'Work To Do', color: Colors.red}
     ]);
+    BackHandler.addEventListener('hardwareBackPress', goBack);
   }, []);
+
+  const goBack = () => {
+    if (showList) {
+      setShowList(false);
+      setSelected(null);
+    }
+    return true;
+  };
 
   const handleCreate = () => {
     if (showList) {
