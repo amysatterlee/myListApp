@@ -9,7 +9,7 @@ export const Colors = {
 };
 
 export const Styles = {
-  get: () => StyleSheet.create({
+  get: (color) => StyleSheet.create({
     container: {
       flex: 1,
       marginTop: 10,
@@ -26,7 +26,7 @@ export const Styles = {
       fontSize: 24,
       fontWeight: 'bold',
       textAlign: 'center',
-      color: 'white'
+      color: color || 'white'
     },
     itemView: {
       height: 60,
@@ -77,7 +77,7 @@ export const Styles = {
     modalDialog: {
       width: '75%',
       backgroundColor: 'white',
-      borderColor: 'darkgrey',
+      borderColor: color || 'darkgrey',
       borderStyle: 'solid',
       borderWidth: 2,
       borderRadius: 10
@@ -98,12 +98,12 @@ export const Styles = {
       marginTop: 10
     },
     buttonLeft: {
-      borderRightColor: 'darkgrey',
+      borderRightColor: color || 'darkgrey',
       borderRightWidth: 1,
       flex: 1
     },
     buttonRight: {
-      borderLeftColor: 'darkgrey',
+      borderLeftColor: color || 'darkgrey',
       borderLeftWidth: 1,
       flex: 1
     },
@@ -111,7 +111,7 @@ export const Styles = {
       fontSize: 20,
       fontWeight: 'bold',
       textAlign: 'center',
-      color: 'darkgrey',
+      color: color || 'darkgrey',
       marginTop: 10
     },
     iconUnderlay: {

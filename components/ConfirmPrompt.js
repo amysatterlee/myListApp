@@ -8,10 +8,11 @@ const ConfirmPrompt = ({
   title,
   message,
   confirmButtonText,
-  handleConfirm
+  handleConfirm,
+  color
 }) => {
 
-  const styles = Styles.get();
+  const styles = Styles.get(color);
 
   return (
     <Modal transparent={true} visible={show} animationType="fade">

@@ -4,6 +4,7 @@ import IconButton from './components/IconButton';
 import ListWidget from './components/ListWidget';
 import ConfirmPrompt from './components/ConfirmPrompt';
 import ListForm from './components/ListForm';
+import ItemForm from './components/ItemForm';
 import { Styles, Colors } from './stylesheets/Styles';
 
 const App: () => React$Node = () => {
@@ -28,27 +29,42 @@ const App: () => React$Node = () => {
   }, []);
 
   const handleCreate = () => {
-    setModalType('add');
-    setShowModal(true);
+    if (showList) {
+      setModalType('addItem');
+      setShowModal(true);
+    } else {
+      setModalType('addList');
+      setShowModal(true);
+    }
   };
 
   const handleItemPress = (item) => {
-    // TODO add database lookup to get the array of list items
-    setSelected(item);
-    retrieveList(item);
-    setShowList(true);
+    if (showList) { // the view is currently of an open list; item press toggles done/active
+      // TODO update database set item status to 'done' or 'active'
+      console.log(`update database set status to done or active for item ${item.id}`);
+    } else {
+      // TODO add database lookup to get the array of list items
+      setSelected(item);
+      retrieveList(item);
+      setShowList(true);
+    }
   };
 
   const handleItemLongPress = (item) => {
-    setSelected(item);
-    setModalType('delete');
-    setShowModal(true);
+    // long press is only available on lists and not list items
+    if (!showList) {
+      setSelected(item);
+      setModalType('delete');
+      setShowModal(true);
+    }
   };
 
   const hideModal = () => {
-    setSelected(null);
     setShowModal(false);
     setModalType(null);
+    if (!showList) {
+      setSelected(null);
+    }
   };
 
   const handleDelete = () => {
@@ -135,13 +151,22 @@ const App: () => React$Node = () => {
               message="Are you sure you want to delete this list?"
               confirmButtonText="Delete"
               handleConfirm={handleDelete}
+              color={selected && selected.color ? selected.color : 'darkgrey'}
             />
             <ListForm
-              show={showModal && modalType === 'add'}
+              show={showModal && modalType === 'addList'}
               dismissModal={hideModal}
               title="Name Your List"
               submitButtonText="Add"
               handleSubmit={handleAdd}
+            />
+            <ItemForm
+              show={showModal && modalType === 'addItem'}
+              dismissModal={hideModal}
+              title="Add Item to List"
+              submitButtonText="Add"
+              handleSubmit={handleAdd}
+              color={selected && selected.color ? selected.color : 'darkgrey'}
             />
           </>
         )}

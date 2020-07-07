@@ -10,7 +10,7 @@ const ListForm = ({
   handleSubmit
 }) => {
 
-  const styles = Styles.get();
+  const styles = Styles.get('darkgrey');
 
   const [value, setValue] = useState('');
   const [selectedColor, setColor] = useState('grey');
